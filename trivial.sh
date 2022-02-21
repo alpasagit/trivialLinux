@@ -9,7 +9,7 @@ echo "\__.::.__\/   \:::_ \ \      \__.::._\/     \:\ \ \ \ \    \__.::._\/     
 echo "   \::\ \      \:(_) ) )_       \::\ \       \:\ \ \ \ \      \::\ \       \::(_)  \ \     \:\ \        "
 echo "    \::\ \      \: __  \ \      _\::\ \__     \:\_/.:\ \      _\::\ \__     \:: __  \ \     \:\ \____   "  
 echo "     \::\ \      \ \  \ \ \    /__\::\__/\     \ ..::/ /     /__\::\__/\     \:.\ \  \ \     \:\/___/\  "
-echo "      \__\/       \_\/ \_\/    \________\/      \___/_(      \________\/      \__\/\__\/      \_____\/  "
+echo "      \__\/       \_\/ \_\/    \________\/      \___/_/      \________\/      \__\/\__\/      \_____\/  "
 
 
 
@@ -31,11 +31,11 @@ while [ $contadorOK -lt 10 ]
 do
 rand=$(($(($RANDOM%$max))+2))
 
-#head -5 Informatica.txt | tail +5 | awk '{ print $10 }'
+head -5 Informatica.txt | tail +5 | awk -F"*"'{ print $2 }'
 echo "printeo la pregunta"
 
 read -p "escribe tu respuesta" respuesta
-solucion= echo "aqui va el otro awk que no sabemos hacer"
+solucion=head -rand Informatica.txt | tail +rand | awk -F"*"'{ print $3 }'
 
 if [ $respuesta = $solucion ];then
 contadorOK=$(($contadorOK + 1))
@@ -51,7 +51,9 @@ echo "¡Enhorabuena, has ganado el juego! Total fallos: $contadorF"
 echo "se supone que esto es una tabla de puntuaciones"
 
 elif [ cantjuga -eq 2 ];then
-
+	
+while [ $NOfallo ]
+do
 #turno1
 if [ $turno -eq 1 ];then
 echo "Turno del 1r jugador"
@@ -71,6 +73,7 @@ contadorF=$(($contadorF + 1))
 echo "¡Has fallado! Num de fallos: $contadorF"
 fi
 fi
+done
 #turno2
 
 #pregunta
@@ -92,5 +95,3 @@ fi
 
 
 fi
-
-
