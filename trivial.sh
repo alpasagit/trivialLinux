@@ -23,7 +23,7 @@ do
 read -p "Cuantos jugadores sois(1 minimo, 2 Maximo)" cantjuga
 
 done
-
+#Modo 1 Jugador
 if [ $cantjuga -eq 1 ];then
 contadorOK=0
 while [ $contadorOK -lt 10 ]
@@ -32,7 +32,7 @@ rand=$(($(($RANDOM%$max))+2))
 
 head -$rand Informatica.txt | tail +$rand | awk -F "*" '{ print $3 }'
 
-read -p "Escribe tu respuesta " respuesta
+read -p "Escribe tu respuesta: " respuesta
 solucion=$(head -$rand Informatica.txt | tail +$rand | awk -F"*" '{ print $4 }') 
 
 if [ "$solucion" = "$respuesta" ]
@@ -48,13 +48,12 @@ fi
 done
 
 echo "¡Enhorabuena, has ganado el juego! Total fallos: $contadorF"
-echo "se supone que esto es una tabla de puntuaciones"
-
+#Modo 2 Jugadores
 elif [ $cantjuga -eq 2 ];then
 turno=1
 contadorOK1=0
 contadorOK2=0
-while [ $contadorOK1 -lt 10 ] || [ $contadorOK2 -lt 10 ]
+while [ $contadorOK1 -lt 10 ] && [ $contadorOK2 -lt 10 ]
 do
 #turno1
 while [ $turno -eq 1 ] && [ $contadorOK1 -lt 10 ]
@@ -65,7 +64,7 @@ rand=$(($(($RANDOM%$max))+2))
 head -$rand Informatica.txt | tail +$rand | awk -F "*" '{ print $3 }'
 #respuesta
 read -p "Escribe tu respuesta: " respuesta
-solucion=$(head -5 Informatica.txt | tail +5 | awk -F "*" '{ print $4 }')
+solucion=$(head -$rand Informatica.txt | tail +$rand | awk -F "*" '{ print $4 }')
 #comprobacion
 if [ "$respuesta" = "$solucion" ];then
 contadorOK1=$(($contadorOK1 + 1))
@@ -86,7 +85,7 @@ rand=$(($(($RANDOM%$max))+2))
 #pregunta
 head -$rand Informatica.txt | tail +$rand | awk -F "*" '{ print $3 }'
 #respuesta
-read -p "escribe tu respuesta" respuesta
+read -p "Escribe tu respuesta: " respuesta
 solucion=$(head -$rand Informatica.txt | tail +$rand | awk -F "*" '{ print $4 }')
 
 if [ "$respuesta" = "$solucion" ];then
@@ -99,6 +98,7 @@ echo "Numero de aciertos: $contadorOK2"
 turno=1
 fi
 done
+
 done
 if [ $contadorOK1 -gt $contadorOK2 ];then
 echo "¡El ganador es el Jugador 1!"
